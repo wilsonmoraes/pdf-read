@@ -27,6 +27,7 @@ authors = ["Wilson Moraes <wilsontads@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "3.9.5"
+prettyconf = "*"
 
 [tool.poetry.dev-dependencies]
 coverage = {version = "6.0b1", allow-prereleases = true}
