@@ -17,8 +17,34 @@
 ## 🤯 How to use it
 
 
-1. Clone the repo
+1. Clone the repo:
 
 ```bash
 git clone https://github.com/wilsonmoraes/pdf-read
+```
+2. Install dependencies:
+
+```bash
+poetry install
+```
+
+
+3. create .env configuration:
+
+```bash
+cp local.env .env
+```
+
+4.  inform `.env` values according to:
+
+|             Propertie             |           Value            |
+| :------------------------------ | :--------------------------- |
+|   `PDFS_FOLDER`   | folders containing all pdf files |
+|    `EXPORT_CSV_TO_FOLDER`    |  folder name to create csv  |
+
+5. run the follow command and wait 😎
+
+
+```bash
+make run
 ```
