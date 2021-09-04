@@ -11,7 +11,6 @@
 
 
 ## Requirements
-> All you need is the latest version of cookiecutter 😉
 * [Python 3.7+](https://python.org)
 * [Python-Pooetry 1.1.8+](https://python-poetry.org/)
 
