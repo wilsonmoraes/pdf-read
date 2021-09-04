@@ -33,6 +33,14 @@ docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=4.6)", "pytest-flake8", "pytest-cov", "pytest-black (>=0.3.7)", "pytest-mypy", "pytest-checkdocs (>=2.4)", "pytest-enabler (>=1.0.1)"]
 
 [[package]]
+name = "certifi"
+version = "2021.5.30"
+description = "Python package for providing Mozilla's CA Bundle."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "cffi"
 version = "1.14.6"
 description = "Foreign Function Interface for Python calling C code."
@@ -145,6 +153,25 @@ name = "iniconfig"
 version = "1.1.1"
 description = "iniconfig: brain-dead simple config-ini parsing"
 category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "jplephem"
+version = "2.16"
+description = "Use a JPL ephemeris to predict planet positions."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+numpy = "*"
+
+[[package]]
+name = "lunardate"
+version = "0.2.0"
+description = "A Chinese Calendar Library in Pure Python"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -287,12 +314,28 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
+name = "pycalverter"
+version = "1.6.1"
+description = "Python Calendar Converter"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pycparser"
 version = "2.20"
 description = "C parser in Python"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[[package]]
+name = "pyluach"
+version = "1.3.0"
+description = "Pyluach is a Python package for manipulating Hebrew dates,                     Gregorian-Hebrew calendar conversions, getting the weekly                     parsha, and other Jewish calendar related calculations."
+category = "main"
+optional = false
+python-versions = ">=3.4"
 
 [[package]]
 name = "pyparsing"
@@ -426,12 +469,46 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
 [[package]]
+name = "sgp4"
+version = "2.20"
+description = "Track Earth satellites given TLE data, using up-to-date 2020 SGP4 routines."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+
+[[package]]
+name = "skyfield"
+version = "1.39"
+description = "Elegant astronomy for Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+certifi = ">=2017.4.17"
+jplephem = ">=2.13"
+numpy = "*"
+sgp4 = ">=2.2"
+
+[[package]]
+name = "skyfield-data"
+version = "3.0.0"
+description = "Data package for Skyfield"
+category = "main"
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,<4,>=2.6"
+
+[package.extras]
+dev = ["colorama", "jplephem", "numpy", "termcolor", "tox"]
+tests = ["mock", "pytest", "skyfield"]
 
 [[package]]
 name = "sortedcontainers"
@@ -448,6 +525,14 @@ description = "Python Library for Tom's Obvious, Minimal Language"
 category = "dev"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
+
+[[package]]
+name = "tzdata"
+version = "2021.1"
+description = "Provider of IANA time zone data"
+category = "main"
+optional = false
+python-versions = ">=2"
 
 [[package]]
 name = "virtualenv"
@@ -469,6 +554,23 @@ docs = ["proselint (>=0.10.2)", "sphinx (>=3)", "sphinx-argparse (>=0.2.5)", "sp
 testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", "pytest (>=4)", "pytest-env (>=0.6.2)", "pytest-freezegun (>=0.4.1)", "pytest-mock (>=2)", "pytest-randomly (>=1)", "pytest-timeout (>=1)", "packaging (>=20.0)"]
 
 [[package]]
+name = "workalendar"
+version = "15.4.0"
+description = "Worldwide holidays and working days helper and toolkit."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+lunardate = "*"
+pyCalverter = "*"
+pyluach = "*"
+python-dateutil = "*"
+skyfield = "*"
+skyfield-data = "*"
+tzdata = {version = "*", markers = "platform_system == \"Windows\""}
+
+[[package]]
 name = "zipp"
 version = "3.5.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
@@ -483,7 +585,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "3.9.5"
-content-hash = "19719c72240739c62c22d70f043f51266714a79c9a849ecfc47e3f7deaf64b8d"
+content-hash = "d9d6945f2362880bf3d54ba872923f3745436fc586832035e57707e8ed3649c1"
 
 [metadata.files]
 atomicwrites = [
@@ -497,6 +599,10 @@ attrs = [
 "backports.entry-points-selectable" = [
     {file = "backports.entry_points_selectable-1.1.0-py2.py3-none-any.whl", hash = "sha256:a6d9a871cde5e15b4c4a53e3d43ba890cc6861ec1332c9c2428c92f977192acc"},
     {file = "backports.entry_points_selectable-1.1.0.tar.gz", hash = "sha256:988468260ec1c196dab6ae1149260e2f5472c9110334e5d51adcb77867361f6a"},
+]
+certifi = [
+    {file = "certifi-2021.5.30-py2.py3-none-any.whl", hash = "sha256:50b1e4f8446b06f41be7dd6338db18e0990601dce795c2b1686458aa7e8fa7d8"},
+    {file = "certifi-2021.5.30.tar.gz", hash = "sha256:2bbf76fd432960138b3ef6dda3dde0544f27cbf8546c458e60baf371917ba9ee"},
 ]
 cffi = [
     {file = "cffi-1.14.6-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:22b9c3c320171c108e903d61a3723b51e37aaa8c81255b5e7ce102775bd01e2c"},
@@ -627,6 +733,16 @@ importlib-metadata = [
 iniconfig = [
     {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
     {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
+]
+jplephem = [
+    {file = "jplephem-2.16.tar.gz", hash = "sha256:abb1dce2f5a2d8862a19866639397b230d0ca114cfcf613b2d4e49eeb5dd71f7"},
+]
+lunardate = [
+    {file = "lunardate-0.2.0-py2-none-any.whl", hash = "sha256:838e84b95d185a12f8bd0c5bdd74864be52d55436bed56927fdc91f4d21ad6b6"},
+    {file = "lunardate-0.2.0-py2.7.egg", hash = "sha256:f0bb5938d7c7f363a26f599a3c27b7f5560edd8b689ef3c5865ec401dfc7ed88"},
+    {file = "lunardate-0.2.0-py3-none-any.whl", hash = "sha256:5619d625809ebcaa673c4e321cd1ea82e649e9bb47e42e6479fe15bbc2b5bffe"},
+    {file = "lunardate-0.2.0-py3.7.egg", hash = "sha256:dd7d7c7a61dbb843662eb8b04da2f0c8bb1e9e2c1dd8acced6ebcb21151eb19c"},
+    {file = "lunardate-0.2.0.tar.gz", hash = "sha256:6c9c96d9f01522a10ab35df1a9b48707ae64a086f13fd34498b43f465918cc6f"},
 ]
 nodeenv = [
     {file = "nodeenv-1.6.0-py2.py3-none-any.whl", hash = "sha256:621e6b7076565ddcacd2db0294c0381e01fd28945ab36bcf00f41c5daf63bef7"},
@@ -759,9 +875,16 @@ py = [
     {file = "py-1.10.0-py2.py3-none-any.whl", hash = "sha256:3b80836aa6d1feeaa108e046da6423ab8f6ceda6468545ae8d02d9d58d18818a"},
     {file = "py-1.10.0.tar.gz", hash = "sha256:21b81bda15b66ef5e1a777a21c4dcd9c20ad3efd0b3f817e7a809035269e1bd3"},
 ]
+pycalverter = [
+    {file = "pyCalverter-1.6.1.tar.gz", hash = "sha256:91e26c5d06dfe1495e5b946a724ae691e57ea634ee4a9529a7952b837c041111"},
+]
 pycparser = [
     {file = "pycparser-2.20-py2.py3-none-any.whl", hash = "sha256:7582ad22678f0fcd81102833f60ef8d0e57288b6b5fb00323d101be910e35705"},
     {file = "pycparser-2.20.tar.gz", hash = "sha256:2d475327684562c3a96cc71adf7dc8c4f0565175cf86b6d7a404ff4c771f15f0"},
+]
+pyluach = [
+    {file = "pyluach-1.3.0-py3-none-any.whl", hash = "sha256:43977d47c86695d66789f3d24c411c4d110363f760331136009e43ac9af61b1e"},
+    {file = "pyluach-1.3.0.tar.gz", hash = "sha256:9cf95eaa600cc904d1adb015036ab135e0d732ca2a30253db92b676ee3415dea"},
 ]
 pyparsing = [
     {file = "pyparsing-2.4.7-py2.py3-none-any.whl", hash = "sha256:ef9d7589ef3c200abe66653d3f1ab1033c3c419ae9b9bdb1240a85b024efc88b"},
@@ -833,9 +956,47 @@ pyyaml = [
     {file = "PyYAML-5.4.1-cp39-cp39-win_amd64.whl", hash = "sha256:c20cfa2d49991c8b4147af39859b167664f2ad4561704ee74c1de03318e898db"},
     {file = "PyYAML-5.4.1.tar.gz", hash = "sha256:607774cbba28732bfa802b54baa7484215f530991055bb562efbed5b2f20a45e"},
 ]
+sgp4 = [
+    {file = "sgp4-2.20-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:b2169cd536355fc67e3870acea34c4fc22b2ccecab2c0bf45a01edfe646fe3d0"},
+    {file = "sgp4-2.20-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:7d848698ae2bf5bb9ea2082640b0417175a6b2e6e8d580114ebe04265cd1bfb4"},
+    {file = "sgp4-2.20-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:1d3b5abc07266203f4b453e7c1ca8403ef2d7b8d1779c14c9a4177e4b1558ba5"},
+    {file = "sgp4-2.20-cp36-cp36m-manylinux2010_i686.whl", hash = "sha256:6c906973dc2966cba8065f359c3eaa18505280be8f625b54ebb98f5ddeb8d205"},
+    {file = "sgp4-2.20-cp36-cp36m-manylinux2010_x86_64.whl", hash = "sha256:3e3eb29c308d30d010316832606af184d243d5aab8ccc5d589f3cb85d74471f7"},
+    {file = "sgp4-2.20-cp36-cp36m-win32.whl", hash = "sha256:e73680b3b7b8b977766ae91eadd92988a0c3e36248dcac5d8263a957bec34a04"},
+    {file = "sgp4-2.20-cp36-cp36m-win_amd64.whl", hash = "sha256:cf4d5ac32b5e84c7b420109a09ea3c3741844fa92776f79d1c852cc67e2c1364"},
+    {file = "sgp4-2.20-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:2a89fc1debacfa10cf55ae1d40472037a57687b1ae3b66e7196e5af53fb96a56"},
+    {file = "sgp4-2.20-cp37-cp37m-manylinux1_i686.whl", hash = "sha256:4d5eb2aff4f645f5020ac869ec453dcd807836b3eb8b459d569eda40c358cd76"},
+    {file = "sgp4-2.20-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:2b449e6cab15748608c6083f86b0059d26093f76fa227010df09d8f0954b3bbd"},
+    {file = "sgp4-2.20-cp37-cp37m-manylinux2010_i686.whl", hash = "sha256:8c2f4f99ab360a93768bf88ad6a9fdf83edfa6292e0a0ac8924c85fde11b2055"},
+    {file = "sgp4-2.20-cp37-cp37m-manylinux2010_x86_64.whl", hash = "sha256:ee3688ae409a201107927b24be10db2a61efdd5a919737b4900c57ee8b3a22d6"},
+    {file = "sgp4-2.20-cp37-cp37m-win32.whl", hash = "sha256:24477da85936b864fd765911f808a4d113c81189c2a0ecd5992bcdf9aecbf5ef"},
+    {file = "sgp4-2.20-cp37-cp37m-win_amd64.whl", hash = "sha256:ee329571c1a25ce4f1e2b01d6f923791d16c5a7a3a75219317073bc50a7d25fe"},
+    {file = "sgp4-2.20-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:1af727dfe02ef32babd124644e96b8cc109b22142efb44e37d0e3aaf4c38a1ab"},
+    {file = "sgp4-2.20-cp38-cp38-manylinux1_i686.whl", hash = "sha256:43c2c6d464144bb80987b2e66f3992add58c65e095abe2b9d567650fdb877a9d"},
+    {file = "sgp4-2.20-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:67f99f534fdc5650d8efe516e77dd9b43e4cb8ab9b38f2b66484085c0ff75077"},
+    {file = "sgp4-2.20-cp38-cp38-manylinux2010_i686.whl", hash = "sha256:dfc5214b65ad8229c499f0da3f5042a18239f12f4318e90d892a79dcbf27282f"},
+    {file = "sgp4-2.20-cp38-cp38-manylinux2010_x86_64.whl", hash = "sha256:e8ecc01fdffe81f11ca94bb255024379e62c92f73e2baec2bdf5a3c3108221ff"},
+    {file = "sgp4-2.20-cp38-cp38-win32.whl", hash = "sha256:06586caf071e3427bc4e5a5c84a806045532040dc2c35ca0ff12f34cab2ecb5c"},
+    {file = "sgp4-2.20-cp38-cp38-win_amd64.whl", hash = "sha256:642bae76c6e55b72feda3c5ca3721e837f2702816a120805349b06e40f85faea"},
+    {file = "sgp4-2.20-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:dbfffe1ff2c223804e2ebdeb568baad46f40342943c4a74169fd75dc5dddda57"},
+    {file = "sgp4-2.20-cp39-cp39-manylinux1_i686.whl", hash = "sha256:05f22b4fd91861ee2e0e03a528c1aef11a8b263a60ab5f723d32cdb65dac3eaa"},
+    {file = "sgp4-2.20-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:80f9b2f1c2ac53c7b8cbf1a08e5a39a56c1b7c18d3e0de922078758a784b0b20"},
+    {file = "sgp4-2.20-cp39-cp39-manylinux2010_i686.whl", hash = "sha256:f5d2830f2896cecc4af0729cd328994ae823f277f481d4fc992383eb79f3742a"},
+    {file = "sgp4-2.20-cp39-cp39-manylinux2010_x86_64.whl", hash = "sha256:ea37423d4317ec5351a4e3b6a3947a6053978e5290549d77ba375459527f7ccb"},
+    {file = "sgp4-2.20-cp39-cp39-win32.whl", hash = "sha256:d42a3dcdfd394c5059b99bbf8b35311e03e87d21fbfb6ba2d5c5d2dfad15d4d7"},
+    {file = "sgp4-2.20-cp39-cp39-win_amd64.whl", hash = "sha256:876b82d41a859c9ff65d3bdb7f6a3cecfc63bea529b4dc751b06eefbd6c3f1e0"},
+    {file = "sgp4-2.20.tar.gz", hash = "sha256:9fde328872f484eb644dabe32122ba617570ff61b548b7200a9d63629ac3097c"},
+]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
+]
+skyfield = [
+    {file = "skyfield-1.39.tar.gz", hash = "sha256:5a8da9720b49981bc6fc60ab8d52ef42a8d46fe7161e34ef6dd1d496de9903e2"},
+]
+skyfield-data = [
+    {file = "skyfield-data-3.0.0.tar.gz", hash = "sha256:c1185c9aa316413fdd76ce5c81cc9a7d548fa95631037e47ba0fc028f131c760"},
+    {file = "skyfield_data-3.0.0-py2.py3-none-any.whl", hash = "sha256:107b07a238633294ee5c3bb668ecc427619e6a3dd8364e51144eb451f99894bd"},
 ]
 sortedcontainers = [
     {file = "sortedcontainers-2.4.0-py2.py3-none-any.whl", hash = "sha256:a163dcaede0f1c021485e957a39245190e74249897e2ae4b2aa38595db237ee0"},
@@ -845,9 +1006,17 @@ toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
     {file = "toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
 ]
+tzdata = [
+    {file = "tzdata-2021.1-py2.py3-none-any.whl", hash = "sha256:9ad21eada54c97001e3e9858a674b3ee6bebe4a4fb2b58465930f2af0ba6c85d"},
+    {file = "tzdata-2021.1.tar.gz", hash = "sha256:e19c7351f887522a1ac739d21041e592ddde6dd1b764fdefa8f7b2b3551d3d38"},
+]
 virtualenv = [
     {file = "virtualenv-20.7.2-py2.py3-none-any.whl", hash = "sha256:e4670891b3a03eb071748c569a87cceaefbf643c5bac46d996c5a45c34aa0f06"},
     {file = "virtualenv-20.7.2.tar.gz", hash = "sha256:9ef4e8ee4710826e98ff3075c9a4739e2cb1040de6a2a8d35db0055840dc96a0"},
+]
+workalendar = [
+    {file = "workalendar-15.4.0-py3-none-any.whl", hash = "sha256:cbf93ce648f71251db68c7c23a6e18f659b54c832ae3941eaf611b6447e64ecc"},
+    {file = "workalendar-15.4.0.tar.gz", hash = "sha256:78b19f7930c800a32ab24506f1146c7c3c93ca260419c9566d7682436c8963ec"},
 ]
 zipp = [
     {file = "zipp-3.5.0-py3-none-any.whl", hash = "sha256:957cfda87797e389580cb8b9e3870841ca991e2125350677b2ca83a0e99390a3"},

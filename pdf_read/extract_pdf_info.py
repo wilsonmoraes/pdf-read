@@ -5,7 +5,7 @@ from config import settings
 from pdfminer.high_level import extract_text
 
 
-class ExtractPdfInfoHandler:
+class ExtractPdfInfo:
     def get_all_contract_details(self):
         pdfs = glob.glob(f"{settings.READ_PDFS_FROM_FOLDER}/*.pdf")
         return [self.get_contract_detail(pdf) for pdf in pdfs]
@@ -16,8 +16,8 @@ class ExtractPdfInfoHandler:
         return {
             "contract_number": self.get_contract_number(content),
             "amount": self.get_amount(content),
-            "write_in_days": self.get_draw_up_in_days(content),
             "date": self.get_contract_date(content),
+            "write_in_days": self.get_draw_up_in_days(content),
         }
 
     def get_amount(self, content: [str]):
