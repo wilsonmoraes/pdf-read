@@ -1,4 +1,5 @@
 import glob
+import logging
 from datetime import datetime
 
 import pandas as pd
@@ -7,11 +8,19 @@ from .config import settings
 from .pdf_detail_handler import PdfDetailHandler
 from .utils import find_following_working_day
 
+logger = logging.getLogger()
+logging.basicConfig(
+    format="%(asctime)s %(levelname)-8s %(message)s", level=logging.INFO, datefmt="%Y-%m-%d %H:%M:%S"
+)
+for v in ["pdfminer.pdfinterp", "pdfminer.pdfdocument", "pdfminer.pdfpage"]:
+    logging.getLogger(v).setLevel(logging.WARNING)
+
 
 class PdfToCsvHandler:
     def extract_contract_details_from_folder(self, folder):
         pdf_detail_handler = PdfDetailHandler()
         pdfs = glob.glob(f"{folder}/*.pdf")
+        logger.info(f"found {len(pdfs)} PDF's")
         return [pdf_detail_handler.get_detail(pdf) for pdf in pdfs]
 
     def transform_pdf_details_to_csv_details(self, contract_detail):
@@ -32,6 +41,7 @@ class PdfToCsvHandler:
         df.to_csv(path_or_buf=csv_path)
 
     def run(self, pdf_folder=settings.READ_PDFS_FROM_FOLDER):
+        logger.info("started")
         now = datetime.utcnow()
         now_str = now.strftime("%d_%m_%Y_%H_%M_%S")
         csv_path = f"{settings.EXPORT_CSV_TO_FOLDER}/{now_str}.csv"
@@ -42,3 +52,4 @@ class PdfToCsvHandler:
             data=values,
             csv_path=csv_path,
         )
+        logger.info("ended")

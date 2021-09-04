@@ -168,6 +168,17 @@ python-versions = "*"
 numpy = "*"
 
 [[package]]
+name = "logentries"
+version = "0.17"
+description = "Python Logger plugin to send logs to Logentries"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+certifi = "*"
+
+[[package]]
 name = "lunardate"
 version = "0.2.0"
 description = "A Chinese Calendar Library in Pure Python"
@@ -585,7 +596,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "3.9.5"
-content-hash = "d9d6945f2362880bf3d54ba872923f3745436fc586832035e57707e8ed3649c1"
+content-hash = "2d7062e9236ed77893b10738a06bd8343a75e0c41b1c13663bb5f0a75d92c62e"
 
 [metadata.files]
 atomicwrites = [
@@ -736,6 +747,9 @@ iniconfig = [
 ]
 jplephem = [
     {file = "jplephem-2.16.tar.gz", hash = "sha256:abb1dce2f5a2d8862a19866639397b230d0ca114cfcf613b2d4e49eeb5dd71f7"},
+]
+logentries = [
+    {file = "Logentries-0.17.tar.gz", hash = "sha256:0414aef7577f64bf3c3778d8233413f81cb9f10cd19641e0d8601c91721aa0dc"},
 ]
 lunardate = [
     {file = "lunardate-0.2.0-py2-none-any.whl", hash = "sha256:838e84b95d185a12f8bd0c5bdd74864be52d55436bed56927fdc91f4d21ad6b6"},

@@ -6,3 +6,6 @@ deps:
 
 test: deps
 	poetry run pytest -vvv
+
+run: deps
+	poetry run python __main__.py
