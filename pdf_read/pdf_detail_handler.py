@@ -1,16 +1,10 @@
-import glob
 import re
 
-from config import settings
 from pdfminer.high_level import extract_text
 
 
-class ExtractPdfInfo:
-    def get_all_contract_details(self):
-        pdfs = glob.glob(f"{settings.READ_PDFS_FROM_FOLDER}/*.pdf")
-        return [self.get_contract_detail(pdf) for pdf in pdfs]
-
-    def get_contract_detail(self, pdf_path):
+class PdfDetailHandler:
+    def get_detail(self, pdf_path):
         content = extract_text(pdf_path)
         content = [s for s in content.splitlines() if s]
         return {

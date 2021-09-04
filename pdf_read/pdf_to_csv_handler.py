@@ -1,66 +1,49 @@
+import glob
 from datetime import datetime
 
+import pandas as pd
 from config import settings
-from create_csv import CreateCSV
+from pdf_detail_handler import PdfDetailHandler
 
 from utils import find_following_working_day
 
 
 class PdfToCsvHandler:
-    def extract_transform_export(self):
+    pdf_detail_handler = PdfDetailHandler()
+
+    def extract_contract_details_from_folder(self, folder):
+        pdfs = glob.glob(f"{folder}/*.pdf")
+        return [self.pdf_detail_handler.get_detail(pdf) for pdf in pdfs]
+
+    def transform_pdf_details_to_csv_details(self, contract_detail):
+        details_to_csv = {
+            "Unit_id": contract_detail["contract_number"],
+            "Valor_Total": contract_detail["amount"],
+            "Data_Contrato": contract_detail["date"],
+            "Data_escritura": find_following_working_day(
+                datetime.strptime(contract_detail["date"], "%d/%m/%Y").date(),
+                contract_detail["write_in_days"],
+            ),
+        }
+        details_to_csv["Data_Contrato"] = details_to_csv["write_in_days"].strftime("%d/%m/%Y")
+        return details_to_csv
+
+    def generate_csv(self, csv_path, data):
+        df = pd.DataFrame.from_records(data=data)
+        df.to_csv(path_or_buf=csv_path)
+
+    def run(self):
         now = datetime.utcnow()
         now_str = now.strftime("%d_%m_%Y_%H_%M_%S")
         csv_path = f"{settings.EXPORT_CSV_TO_FOLDER}/{now_str}.csv"
-        values = [
-            {
-                "contract_number": "736122",
-                "amount": "1.400.000,00 ",
-                "date": "15/02/2021",
-                "write_in_days": 76,
-            },
-            {
-                "contract_number": "942739",
-                "amount": "590.000,00 ",
-                "date": "13/04/2021",
-                "write_in_days": 100,
-            },
-            {
-                "contract_number": "592837",
-                "amount": "800.000,00 ",
-                "date": "17/03/2021",
-                "write_in_days": 100,
-            },
-            {
-                "contract_number": "285799",
-                "amount": "1.200.000,00 ",
-                "date": "29/05/2021",
-                "write_in_days": 25,
-            },
-            {
-                "contract_number": "584112",
-                "amount": "770.000,00 ",
-                "date": "31/03/2021",
-                "write_in_days": 100,
-            },
-            {
-                "contract_number": "133555",
-                "amount": "871.000,00 ",
-                "date": "31/03/2021",
-                "write_in_days": 100,
-            },
-        ]
-        for x in values:
-            x["write_in_days"] = find_following_working_day(
-                datetime.strptime(x["date"], "%d/%m/%Y").date(), x["write_in_days"]
-            )
-            x["write_in_days"] = x["write_in_days"].strftime("%d/%m/%Y")
-        csv = CreateCSV()
-        csv.generate_csv(
+
+        values = self.extract_contract_details_from_folder(csv_path)
+        values = [self.transform_pdf_details_to_csv_details(value) for value in values]
+        self.generate_csv(
             data=values,
-            columns=["Unit_id", "Valor_Total", "Data_Contrato", "Data_escritura"],
             csv_path=csv_path,
         )
 
 
 p = PdfToCsvHandler()
-p.extract_transform_export()
+p.run()

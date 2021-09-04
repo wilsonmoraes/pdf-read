@@ -14,7 +14,7 @@ default_section = "THIRDPARTY"
 
 [tool.pytest.ini_options]
 testpaths = "tests"
-addopts = "-vv --cov-report=term-missing --cov=pdf_reader --cov-branch"
+addopts = "-vv --cov-report=term-missing --cov=pdf_read"
 pytestenvvars__env_files = [
     ".env",
 ]
