@@ -2,18 +2,17 @@ import glob
 from datetime import datetime
 
 import pandas as pd
-from config import settings
-from pdf_detail_handler import PdfDetailHandler
 
-from utils import find_following_working_day
+from .config import settings
+from .pdf_detail_handler import PdfDetailHandler
+from .utils import find_following_working_day
 
 
 class PdfToCsvHandler:
-    pdf_detail_handler = PdfDetailHandler()
-
     def extract_contract_details_from_folder(self, folder):
+        pdf_detail_handler = PdfDetailHandler()
         pdfs = glob.glob(f"{folder}/*.pdf")
-        return [self.pdf_detail_handler.get_detail(pdf) for pdf in pdfs]
+        return [pdf_detail_handler.get_detail(pdf) for pdf in pdfs]
 
     def transform_pdf_details_to_csv_details(self, contract_detail):
         details_to_csv = {
@@ -25,17 +24,16 @@ class PdfToCsvHandler:
                 contract_detail["write_in_days"],
             ),
         }
-        details_to_csv["Data_Contrato"] = details_to_csv["write_in_days"].strftime("%d/%m/%Y")
+        details_to_csv["Data_escritura"] = details_to_csv["Data_escritura"].strftime("%d/%m/%Y")
         return details_to_csv
 
     def generate_csv(self, csv_path, data):
         df = pd.DataFrame.from_records(data=data)
         df.to_csv(path_or_buf=csv_path)
 
-    def run(self):
+    def run(self, pdf_folder=settings.READ_PDFS_FROM_FOLDER):
         now = datetime.utcnow()
         now_str = now.strftime("%d_%m_%Y_%H_%M_%S")
-        pdf_folder = settings.READ_PDFS_FROM_FOLDER
         csv_path = f"{settings.EXPORT_CSV_TO_FOLDER}/{now_str}.csv"
 
         values = self.extract_contract_details_from_folder(pdf_folder)
@@ -44,7 +42,3 @@ class PdfToCsvHandler:
             data=values,
             csv_path=csv_path,
         )
-
-
-p = PdfToCsvHandler()
-p.run()
