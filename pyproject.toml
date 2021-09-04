@@ -30,6 +30,8 @@ python = "3.9.5"
 prettyconf = "*"
 pytesseract="*"
 PyPDF2="*"
+"pdfminer.six"="*"
+price-parser="*"
 
 [tool.poetry.dev-dependencies]
 coverage = {version = "6.0b1", allow-prereleases = true}
