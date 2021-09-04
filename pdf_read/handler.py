@@ -8,8 +8,7 @@ from pdfminer.high_level import extract_text
 class ExtractPdfInfoHandler:
     def get_all_contract_details(self):
         pdfs = glob.glob(f"{settings.READ_PDFS_FROM_FOLDER}/*.pdf")
-        for pdf in pdfs:
-            return [s for s in self.get_contract_detail(pdf)]
+        return [self.get_contract_detail(pdf) for pdf in pdfs]
 
     def get_contract_detail(self, pdf_path):
         content = extract_text(pdf_path)
