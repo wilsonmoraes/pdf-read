@@ -35,9 +35,10 @@ class PdfToCsvHandler:
     def run(self):
         now = datetime.utcnow()
         now_str = now.strftime("%d_%m_%Y_%H_%M_%S")
+        pdf_folder = settings.READ_PDFS_FROM_FOLDER
         csv_path = f"{settings.EXPORT_CSV_TO_FOLDER}/{now_str}.csv"
 
-        values = self.extract_contract_details_from_folder(csv_path)
+        values = self.extract_contract_details_from_folder(pdf_folder)
         values = [self.transform_pdf_details_to_csv_details(value) for value in values]
         self.generate_csv(
             data=values,

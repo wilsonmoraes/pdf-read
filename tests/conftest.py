@@ -1,4 +1,19 @@
+import os
+
 import pytest
+
+from pdf_read.pdf_detail_handler import PdfDetailHandler
+
+
+@pytest.fixture
+def pdf_detail_handler():
+    return PdfDetailHandler()
+
+
+@pytest.fixture
+def valid_contract():
+    root_dir = os.path.dirname(os.path.abspath(__file__))
+    return {"folder": f"{root_dir}/data", "file_name": "valid_contract.pdf"}
 
 
 @pytest.fixture
