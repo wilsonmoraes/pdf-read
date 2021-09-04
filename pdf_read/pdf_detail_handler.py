@@ -32,7 +32,7 @@ class PdfDetailHandler:
         try:
             write_in_days = next(filter(lambda x: x.startswith("A Escritura deverá ser lavrada"), content))
             return int(re.search(r"\d+", write_in_days).group())
-        except (IndexError, ValueError):
+        except (IndexError, ValueError, StopIteration):
             return ""
 
     def get_contract_number(self, content: [str]):
