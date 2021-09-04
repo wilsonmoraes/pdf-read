@@ -31,6 +31,7 @@ prettyconf = "*"
 pytesseract="*"
 "pdfminer.six"="*"
 price-parser="*"
+pandas="*"
 
 [tool.poetry.dev-dependencies]
 coverage = {version = "6.0b1", allow-prereleases = true}
