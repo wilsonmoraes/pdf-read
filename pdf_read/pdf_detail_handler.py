@@ -24,7 +24,7 @@ class PdfDetailHandler:
                     """,
                 amount,
                 re.VERBOSE,
-            )[1]
+            )[1].strip()
         except (IndexError, ValueError):
             return ""
 
