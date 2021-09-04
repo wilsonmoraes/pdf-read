@@ -29,7 +29,6 @@ authors = ["Wilson Moraes <wilsontads@gmail.com>"]
 python = "3.9.5"
 prettyconf = "*"
 pytesseract="*"
-PyPDF2="*"
 "pdfminer.six"="*"
 price-parser="*"
 
