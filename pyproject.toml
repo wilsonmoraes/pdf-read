@@ -27,7 +27,7 @@ authors = ["Wilson Moraes <wilsontads@gmail.com>"]
 
 
 [tool.poetry.dependencies]
-python = "3.9.5"
+python = "^3.7"
 prettyconf = "*"
 pytesseract="*"
 "pdfminer.six"="*"
