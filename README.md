@@ -39,8 +39,8 @@ cp local.env .env
 
 |             Propertie             |           Value            |
 | :------------------------------ | :--------------------------- |
-|   `INPUT_DIR`   | folder containing all pdf files |
-|    `OUT_DIR`    |  folder name to create csv  |
+|   `INPUT_DIR`   | Folder containing pdfs files |
+|    `OUT_DIR`    |  CSV data exported to directory. Files will be: `OUT_DIR/dd_mm_yyyy_hh_mm_ss.csv` |
 
 5. run the follow command and wait 😎
 
