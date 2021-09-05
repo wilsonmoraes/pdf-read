@@ -39,7 +39,7 @@ cp local.env .env
 
 |             Propertie             |           Value            |
 | :------------------------------ | :--------------------------- |
-|   `PDFS_FOLDER`   | folders containing all pdf files |
+|   `PDFS_FOLDER`   | folder containing all pdf files |
 |    `EXPORT_CSV_TO_FOLDER`    |  folder name to create csv  |
 
 5. run the follow command and wait 😎
