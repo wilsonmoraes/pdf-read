@@ -40,11 +40,11 @@ class PdfToCsvHandler:
         df = pd.DataFrame.from_records(data=data)
         df.to_csv(path_or_buf=csv_path)
 
-    def run(self, pdf_folder=settings.READ_PDFS_FROM_FOLDER):
+    def run(self, pdf_folder=settings.INPUT_DIR):
         logger.info("started")
         now = datetime.utcnow()
         now_str = now.strftime("%d_%m_%Y_%H_%M_%S")
-        csv_path = f"{settings.EXPORT_CSV_TO_FOLDER}/{now_str}.csv"
+        csv_path = f"{settings.OUT_DIR}/{now_str}.csv"
 
         values = self.extract_contract_details_from_folder(pdf_folder)
         values = [self.transform_pdf_details_to_csv_details(value) for value in values]
