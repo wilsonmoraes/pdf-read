@@ -14,6 +14,15 @@
 * [Python 3.7+](https://python.org)
 * [Python-Pooetry 1.1.8+](https://python-poetry.org/)
 
+### Development features
+
+- Supports `Python 3.7` and higher.
+- [`Poetry`](https://python-poetry.org/) as a dependencies manager.
+- Automatic codestyle with [`black`](https://github.com/psf/black), [`isort`](https://github.com/timothycrosley/isort).
+- Ready-to-use [`pre-commit`](https://pre-commit.com/) hooks with code-formatting.
+- Docstring checks with [`darglint`](https://github.com/terrencepreilly/darglint); security checks with [`safety`](https://github.com/pyupio/safety) 
+- Testing with [`pytest`](https://docs.pytest.org/en/latest/).
+
 ## 🤯 How to use it
 
 
