@@ -31,7 +31,7 @@
 1. Clone the repo:
 
 ```bash
-git clone https://github.com/wilsonmoraes/pdf-read
+git clone git@github.com:wilsonmoraes/pdf-read.git
 ```
 
 2. Create .env configuration:
