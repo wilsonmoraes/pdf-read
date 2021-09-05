@@ -1,4 +1,4 @@
-# PDF Read
+# PDF Reader by Loft Challenge
 
 <div align="left">
 
