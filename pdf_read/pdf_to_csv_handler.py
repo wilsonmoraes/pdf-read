@@ -17,13 +17,13 @@ for v in ["pdfminer.pdfinterp", "pdfminer.pdfdocument", "pdfminer.pdfpage"]:
 
 
 class PdfToCsvHandler:
-    def extract_contract_details_from_folder(self, folder):
+    def _extract_contract_details_from_folder(self, folder):
         pdf_detail_handler = PdfDetailHandler()
         pdfs = glob.glob(f"{folder}/*.pdf")
         logger.info(f"found {len(pdfs)} PDF's")
         return [pdf_detail_handler.get_detail(pdf) for pdf in pdfs]
 
-    def transform_pdf_details_to_csv_details(self, contract_detail):
+    def _transform_pdf_details_to_csv_details(self, contract_detail):
         details_to_csv = {
             "Unit_id": contract_detail["contract_number"],
             "Valor_Total": contract_detail["amount"],
@@ -36,8 +36,10 @@ class PdfToCsvHandler:
         details_to_csv["Data_escritura"] = details_to_csv["Data_escritura"].strftime("%d/%m/%Y")
         return details_to_csv
 
-    def generate_csv(self, csv_path, data):
+    def _generate_csv(self, csv_path, data, index_col: str = None):
         df = pd.DataFrame.from_records(data=data)
+        if index_col:
+            df.set_index(index_col, inplace=True)
         df.to_csv(path_or_buf=csv_path)
 
     def run(self, pdf_folder=settings.INPUT_DIR):
@@ -46,10 +48,7 @@ class PdfToCsvHandler:
         now_str = now.strftime("%d_%m_%Y_%H_%M_%S")
         csv_path = f"{settings.OUT_DIR}/{now_str}.csv"
 
-        values = self.extract_contract_details_from_folder(pdf_folder)
-        values = [self.transform_pdf_details_to_csv_details(value) for value in values]
-        self.generate_csv(
-            data=values,
-            csv_path=csv_path,
-        )
+        values = self._extract_contract_details_from_folder(pdf_folder)
+        values = [self._transform_pdf_details_to_csv_details(value) for value in values]
+        self._generate_csv(data=values, csv_path=csv_path, index_col="Unit_id")
         logger.info("ended")
