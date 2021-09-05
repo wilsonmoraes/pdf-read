@@ -29,13 +29,13 @@ poetry install
 ```
 
 
-3. create .env configuration:
+3. Create .env configuration:
 
 ```bash
 cp local.env .env
 ```
 
-4.  inform `.env` values according to:
+4.  Set `.env` values like:
 
 |             Propertie             |           Value            |
 | :------------------------------ | :--------------------------- |
