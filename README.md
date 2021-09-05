@@ -29,20 +29,20 @@ poetry install
 ```
 
 
-3. create .env configuration:
+3. Create .env configuration:
 
 ```bash
 cp local.env .env
 ```
 
-4.  inform `.env` values according to:
+4.  Set `.env` values like:
 
 |             Propertie             |           Value            |
 | :------------------------------ | :--------------------------- |
-|   `PDFS_FOLDER`   | folder containing all pdf files |
-|    `EXPORT_CSV_TO_FOLDER`    |  folder name to create csv  |
+|   `INPUT_DIR`   | Folder containing pdfs files |
+|    `OUT_DIR`    |  CSV data exported to directory. Files will be: `OUT_DIR/dd_mm_yyyy_hh_mm_ss.csv` |
 
-5. run the follow command and wait 😎
+5. Run the follow command and wait 😎
 
 
 ```bash
