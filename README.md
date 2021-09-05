@@ -31,27 +31,21 @@
 ```bash
 git clone https://github.com/wilsonmoraes/pdf-read
 ```
-2. Install dependencies:
 
-```bash
-poetry install
-```
-
-
-3. Create .env configuration:
+2. Create .env configuration:
 
 ```bash
 cp local.env .env
 ```
 
-4.  Set `.env` values like:
+3.  Set `.env` values like:
 
 |             Propertie             |           Value            |
 | :------------------------------ | :--------------------------- |
 |   `INPUT_DIR`   | Folder containing pdfs files |
 |    `OUT_DIR`    |  CSV data exported to directory. Files will be: `OUT_DIR/dd_mm_yyyy_hh_mm_ss.csv` |
 
-5. Run the follow command and wait 😎
+4. Run the follow command and wait 😎
 
 
 ```bash
