@@ -3,9 +3,11 @@
 <div align="left">
 
 
-[![Dependencies Status](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)](https://github.com/TezRomacH/python-package-template/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Aapp%2Fdependabot)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/TezRomacH/python-package-template/blob/master/.pre-commit-config.yaml)
+![Action Status](https://github.com/psf/black/workflows/Test/badge.svg)
+![Action Status](https://camo.githubusercontent.com/2c8b15a3902bc15c0d1e6d70bbf7a1f0f248e2df4b430e25517c7543233530fb/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f436f7665726167652d3130302532352d627269676874677265656e2e737667)
+![Dependencies Status](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
+![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
+![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)
 
 </div>
 
