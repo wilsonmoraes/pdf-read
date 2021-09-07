@@ -2,13 +2,13 @@ import os
 
 import pytest
 
-from pdf_read.pdf_detail_handler import PdfDetailHandler
+from pdf_read.contract_info import ContractInfo
 from pdf_read.pdf_to_csv_handler import PdfToCsvHandler
 
 
 @pytest.fixture
 def pdf_detail_handler():
-    return PdfDetailHandler()
+    return ContractInfo()
 
 
 @pytest.fixture

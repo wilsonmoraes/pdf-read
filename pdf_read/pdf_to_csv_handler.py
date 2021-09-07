@@ -5,8 +5,8 @@ from datetime import datetime
 import pandas as pd
 
 from .config import settings
-from .pdf_detail_handler import PdfDetailHandler
-from .utils import find_following_working_day
+from .contract_info import ContractInfo
+from .utils import find_following_working_day, pdf_content_to_str
 
 logger = logging.getLogger()
 logging.basicConfig(
@@ -17,38 +17,42 @@ for v in ["pdfminer.pdfinterp", "pdfminer.pdfdocument", "pdfminer.pdfpage"]:
 
 
 class PdfToCsvHandler:
-    def _extract_contract_details_from_folder(self, folder):
-        pdf_detail_handler = PdfDetailHandler()
+    def _get_all_pdf_contents(self, folder):
         pdfs = glob.glob(f"{folder}/*.pdf")
         logger.info(f"found {len(pdfs)} PDF's")
-        return [pdf_detail_handler.get_detail(pdf) for pdf in pdfs]
+        return [pdf_content_to_str(pdf_path=pdf) for pdf in pdfs]
 
-    def _transform_pdf_details_to_csv_details(self, contract_detail):
-        details_to_csv = {
-            "Unit_id": contract_detail["contract_number"],
-            "Valor_Total": contract_detail["amount"],
-            "Data_Contrato": contract_detail["date"],
-            "Data_escritura": find_following_working_day(
-                datetime.strptime(contract_detail["date"], "%d/%m/%Y").date(),
-                contract_detail["write_in_days"],
-            ),
+    def _transform_contract_info_to_csv_row(self, pdf_content):
+        contract_date = ContractInfo.get_date(pdf_content)
+        deed_in_days = ContractInfo.get_count_deed_in_days(pdf_content)
+        deed_date = ""
+        if deed_in_days:
+            deed_date = find_following_working_day(
+                datetime.strptime(contract_date, "%d/%m/%Y").date(),
+                deed_in_days,
+            ).strftime("%d/%m/%Y")
+
+        csv_row = {
+            "Unit_id": ContractInfo.get_identifier(pdf_content),
+            "Valor_Total": ContractInfo.get_amount(pdf_content),
+            "Data_Contrato": contract_date,
+            "Data_escritura": deed_date,
         }
-        details_to_csv["Data_escritura"] = details_to_csv["Data_escritura"].strftime("%d/%m/%Y")
-        return details_to_csv
+        return csv_row
 
-    def _generate_csv(self, csv_path, data, index_col: str = None):
+    def _generate_csv(self, export_to, data, index_col: str = None):
         df = pd.DataFrame.from_records(data=data)
         if index_col:
             df.set_index(index_col, inplace=True)
-        df.to_csv(path_or_buf=csv_path)
+        df.to_csv(path_or_buf=export_to)
 
     def run(self, pdf_folder=settings.INPUT_DIR):
         logger.info("started")
         now = datetime.utcnow()
         now_str = now.strftime("%d_%m_%Y_%H_%M_%S")
-        csv_path = f"{settings.OUT_DIR}/{now_str}.csv"
+        out_file_name = f"{settings.OUT_DIR}/{now_str}.csv"
 
-        values = self._extract_contract_details_from_folder(pdf_folder)
-        values = [self._transform_pdf_details_to_csv_details(value) for value in values]
-        self._generate_csv(data=values, csv_path=csv_path, index_col="Unit_id")
+        values = self._get_all_pdf_contents(pdf_folder)
+        values = [self._transform_contract_info_to_csv_row(value) for value in values]
+        self._generate_csv(data=values, export_to=out_file_name, index_col="Unit_id")
         logger.info("ended")

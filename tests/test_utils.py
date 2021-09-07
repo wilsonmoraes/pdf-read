@@ -3,7 +3,7 @@ from unittest import mock
 
 import pytest
 
-from pdf_read.utils import find_following_working_day
+from pdf_read.utils import find_following_working_day, pdf_content_to_str
 
 
 @mock.patch("workalendar.america.BrazilBankCalendar.add_working_days")
@@ -30,3 +30,16 @@ def test_add_working_days(mocked_add_working_days):
 )
 def test_find_following_working_day(current_date, working_days, expected_date):
     assert find_following_working_day(current_date, working_days) == expected_date
+
+
+def test_pdf_content_to_str_success(valid_contract):
+    returned_value = pdf_content_to_str(f"{valid_contract['folder']}/{valid_contract['file_name']}")
+    assert len(returned_value) != 0
+    assert "COMPROMISSO DE COMPRA E VENDA" in returned_value
+
+
+def test_pdf_content_to_str_file_not_found(valid_contract):
+    with pytest.raises(FileNotFoundError) as exc:
+        pdf_content_to_str(f"{valid_contract['folder']}/fake.pdf")
+    assert exc.type == FileNotFoundError
+    assert "No such file" in str(exc)
